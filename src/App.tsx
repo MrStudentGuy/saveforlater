@@ -24,6 +24,8 @@ function App() {
 	const [description, setDescription] = useState<string>("");
 	const [url, setUrl] = useState<string>("");
 	
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	
 	const addLink = () => {
 		const newLink: Link = {
 			id: storedLinks.length + 1,
@@ -39,7 +41,7 @@ function App() {
 		<>
 			<h1 className={"text-5xl font-bold"}>Save For Later</h1>
 			
-			<Dialog>
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger className={"mt-10"}>
 					<Button>Add Link</Button>
 				</DialogTrigger>
@@ -52,7 +54,7 @@ function App() {
 						<Label htmlFor="title">Title</Label>
 						<Input type="text" id="title" onChange={e => {setTitle(e.target.value)}}/>
 						
-						<Label htmlFor="description">Description</Label>
+						<Label htmlFor="description">Description (optional)</Label>
 						<Textarea id="description" onChange={e => {setDescription(e.target.value)}}/>
 						
 						<Label htmlFor="url">URL</Label>
@@ -64,8 +66,9 @@ function App() {
 							<Button variant={"destructive"}>Cancel</Button>
 						</DialogClose>
 						<Button onClick={() => {
-							if (title && description && url) {
+							if (title && url) {
 								addLink();
+								setIsOpen(false);
 							} else {
 								alert("Please fill out all fields");
 							}

@@ -8,6 +8,7 @@ const LinkCard = (props :Link) => {
 	const [storedLinks, setStoredLinks] = useLocalStorage<Link[]>("links", []);
 	
 	
+	
 	return (
 		<Card className={"w-80"}>
 			<CardHeader className={"flex flex-row justify-between items-center"}>
