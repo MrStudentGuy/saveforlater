@@ -7,7 +7,12 @@ import {X} from "lucide-react";
 const LinkCard = (props :Link) => {
 	const [storedLinks, setStoredLinks] = useLocalStorage<Link[]>("links", []);
 	
-	
+	const CleanLink = () => {
+		const url = props.url;
+		if (!url.includes("http://") && !url.includes("https://")) {
+			return "https://" + url;
+		} else return url;
+	}
 	
 	return (
 		<Card className={"w-80"}>
@@ -27,7 +32,7 @@ const LinkCard = (props :Link) => {
 			<p>{props.description}</p>
 			
 			<CardFooter>
-				<a href={props.url} className={"text-blue-600 underline"}>{props.url}</a>
+				<a href={CleanLink()} className={"text-blue-600 underline"}>{CleanLink()}</a>
 			</CardFooter>
 		</Card>
 	);
